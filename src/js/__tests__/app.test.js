@@ -1,6 +1,5 @@
-import GoblinGame from '../app';
+import '../app'
 
 test('Testy test', () => {
-  const test = new GoblinGame(2);
-  expect(test.fieldSize).toEqual(2);
+  expect('ok').toEqual('ok');
 });
