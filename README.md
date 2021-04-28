@@ -1,1 +1,1 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/ks3ccjfl7m88618j?svg=true)](https://ci.appveyor.com/project/pfzw90/ahj-dom-homework)
+[![Build status](https://ci.appveyor.com/api/projects/status/oft1xgf1j9ju3o2d?svg=true)](https://ci.appveyor.com/project/pfzw90/ahj-events-homework)

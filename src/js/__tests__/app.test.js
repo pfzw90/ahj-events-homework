@@ -1,5 +1,6 @@
-import '../app'
+import '../app';
 
 test('Testy test', () => {
-  expect('ok').toEqual('ok');
+  const ok = 'ok';
+  expect(ok).toEqual('ok');
 });
