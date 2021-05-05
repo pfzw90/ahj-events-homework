@@ -7,8 +7,12 @@ export default class goblinLogic {
     this.goblin.src = img;
     this.currentPos = 0;
     this.lose = 0;
+    this.score = 0;
+    this.topScore = window.localStorage.getItem('topScore');
     this.goblin.addEventListener('click', () => {
       clearTimeout(this.timeout);
+
+      document.getElementById('current-score').innerText = `${this.score += 1}`;
       this.try();
     });
   }
@@ -23,6 +27,11 @@ export default class goblinLogic {
 
   endGame() {
     this.lose = 0;
+    if (this.score > this.topScore) {
+      window.localStorage.setItem('topScore', this.score);
+      document.getElementById('top-score').innerText = this.score;
+    }
+    this.score = 0;
     document.getElementById(`cell_${this.currentPos}`).innerHTML = '';
     document.getElementById('start-btn').classList.toggle('visible');
   }
