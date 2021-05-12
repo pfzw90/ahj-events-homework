@@ -8,13 +8,18 @@ export default class goblinLogic {
     this.currentPos = 0;
     this.lose = 0;
     this.score = 0;
+    this.timeout = null;
     this.topScore = window.localStorage.getItem('topScore');
-    this.goblin.addEventListener('click', () => {
-      clearTimeout(this.timeout);
 
-      document.getElementById('current-score').innerText = `${this.score += 1}`;
-      this.try();
-    });
+    document.querySelectorAll('.cell').forEach((cell) => cell.addEventListener('click', (ev) => {
+      if (this.timeout !== null) {
+        clearTimeout(this.timeout);
+        if (ev.target === this.goblin) {
+          document.getElementById('current-score').innerText = `${this.score += 1}`;
+          this.try();
+        } else { this.losePoint(); }
+      }
+    }));
   }
 
   generateRand() {
@@ -28,12 +33,14 @@ export default class goblinLogic {
   endGame() {
     this.lose = 0;
     if (this.score > this.topScore) {
-      window.localStorage.setItem('topScore', this.score);
-      document.getElementById('top-score').innerText = this.score;
+      this.topScore = this.score;
+      window.localStorage.setItem('topScore', this.topScore);
+      document.getElementById('top-score').innerText = this.topScore;
     }
     this.score = 0;
-    document.getElementById(`cell_${this.currentPos}`).innerHTML = '';
+    document.getElementById(`cell_${this.currentPos}`).removeChild(this.goblin);
     document.getElementById('start-btn').classList.toggle('visible');
+    this.timeout = null;
   }
 
   losePoint() {
@@ -51,7 +58,7 @@ export default class goblinLogic {
   }
 
   drawGoblin() {
-    document.getElementById(`cell_${this.currentPos}`).innerHTML = '';
+    if (this.timeout !== null) document.getElementById(`cell_${this.currentPos}`).removeChild(this.goblin);
     this.currentPos = this.generateRand();
     document.getElementById(`cell_${this.currentPos}`).insertAdjacentElement('afterbegin', this.goblin);
   }
